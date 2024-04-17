@@ -16,6 +16,7 @@ const Popularjobs = () => {
   })
 
   console.log(data)
+  console.log(["$$$$$$$$$"])
 
   return (
     <View style={styles.container}>
