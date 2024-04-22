@@ -15,13 +15,17 @@ const Popularjobs = () => {
     num_pages: 1 
   })
 
-  console.log(data)
-  console.log(["$$$$$$$$$"])
+console.log(data)
+
+//const [selectedJob, setSelectedJob] = useState()
+const handleCardPress = (item) => {
+
+}
 
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <Text style={styles.headerTitle}>Popularjobs</Text>
+        <Text style={styles.headerTitle}>Trabajos en tendencia</Text>
         <TouchableOpacity>
            <Text style={styles.headerBtn}>Mostrar todo</Text>
         </TouchableOpacity>
@@ -34,13 +38,13 @@ const Popularjobs = () => {
           <Text>Algo ocurrio mal</Text>
         ) : (
           <FlatList
-            data={[1, 2, 3, 4, 5]}
+            data={[1, 2, 3, 4]}
             renderItem={({ item }) => (
               <PopularJobCard
                 item={item}
               />
             )}
-            keyExtractor={item=> item?.job_id}
+            keyExtractor={item => item?.job_id}
             contentContainerStyle={{ columnGap: SIZES.medium }}
             horizontal
           />
