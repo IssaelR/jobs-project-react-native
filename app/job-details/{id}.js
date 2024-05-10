@@ -7,6 +7,8 @@ import { Company, JobAbout, JobFooter, JobTabs, ScreenHeaderBtn, Specifics} from
 import { COLORS, icons, SIZES } from '../../constants'
 import useFetch from '../../hook/useFetch'
 
+const tabs = ["Sobre", "Requisitos", "Responsabilidades"];
+
 const JobDetails = () => {
     const params = useSearchParams();
     const router = useRouter();
@@ -14,9 +16,25 @@ const JobDetails = () => {
     const { data, isLoading, error, reFetch } = useFetch('job-details', 
     { job_id: params.id })  
 
-    const {refreshing, setRefreshing} = useState(false);
+    const [refreshing, setRefreshing] = useState(false);
+    const [activeTab, setActiveTab] = useState(tabs[0]);
 
     const onRefresh = () => {}
+
+    const displayTabContent = () => {
+        switch (activeTab){
+            case "Sobre":
+                return <JobAbout
+                    info={data[0].job_description ?? "No se encontraron datos"}
+                />
+            case "Requisitos":
+                return <Specifics
+                    title="Requisitos"
+                    points={data[0].job_highlights?.Qualifications ?? ['N/A']}
+                />
+            
+        }
+    }
 
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.lightWhite}}>
@@ -45,7 +63,7 @@ const JobDetails = () => {
             <>
                 <ScrollView showsVerticalScrollIndicator={false} refresControl=
                     {<RefreshControll refresing={refreshing} onRefresh={onRefresh} />}>
-                        (isLoading ? (
+                        {isLoading ? (
                             <ActivityIndicator size="large" color={COLORS.primary} />
                         ) : error ? (
                             <Text>Algo salio mal</Text>
@@ -62,11 +80,14 @@ const JobDetails = () => {
                                 />
 
                                 <JobTabs
-
+                                    tabs={tabs}
+                                    activeTab={activeTab}
+                                    setActiveTab={setActiveTab}
                                 />
 
+                                {displayTabContent()}
                             </View>
-                        )
+                        )}
                 </ScrollView>
             </>
         </SafeAreaView>
