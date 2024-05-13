@@ -11,23 +11,24 @@ import useFetch from '../../../hook/useFetch'
 const Popularjobs = () => {
   const router = useRouter();
   const { data, isLoading, error } = useFetch('search',
-   { query: 'React developer',
+   { query: 'Python developer',
     num_pages: 1 
-  })
+  });
 
-console.log(data)
+  const[selectedJob, setSelectedJob] = useState();
 
-//const [selectedJob, setSelectedJob] = useState()
-const handleCardPress = (item) => {
-
-}
+  //const [selectedJob, setSelectedJob] = useState()
+  const handleCardPress = (item) => {
+    router.push(`/job-details/${item.job_id}`);
+    setSelectedJob(item.job_id);
+  }
 
   return (
     <View style={styles.container}>
       <View style={styles.header}>
         <Text style={styles.headerTitle}>Trabajos en tendencia</Text>
         <TouchableOpacity>
-           <Text style={styles.headerBtn}>Mostrar todo</Text>
+          <Text style={styles.headerBtn}>Mostrar todo</Text>
         </TouchableOpacity>
       </View>
 
@@ -38,10 +39,12 @@ const handleCardPress = (item) => {
           <Text>Algo ocurrio mal</Text>
         ) : (
           <FlatList
-            data={[1, 2, 3, 4]}
+            data={data}
             renderItem={({ item }) => (
               <PopularJobCard
                 item={item}
+                selectedJob={selectedJob}
+                handleCardPress={handleCardPress}
               />
             )}
             keyExtractor={item => item?.job_id}
@@ -51,7 +54,7 @@ const handleCardPress = (item) => {
         )}
       </View>
     </View>
-  )
-}
+  );
+};
 
-export default Popularjobs
+export default Popularjobs;

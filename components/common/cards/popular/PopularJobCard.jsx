@@ -6,6 +6,7 @@ import styles from './popularjobcard.style'
 import { checkImageURL } from '../../../../utils'
 
 const PopularJobCard = ({ item, selectedJob, handleCardPress}) => {
+  console.log(item.employer_logo);
   return (
     <TouchableOpacity
       style={styles.container(selectedJob, item)}
@@ -15,7 +16,7 @@ const PopularJobCard = ({ item, selectedJob, handleCardPress}) => {
         <Image
           source={{ uri: checkImageURL(item.employer_logo)
           ? item.employer_logo
-          : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSTOQQxBDTFLMLPGs1_rRbnIHAi_1wGfY_wOv8jG3W6zQ&s' }}          
+          : 'https://static.vecteezy.com/system/resources/thumbnails/022/014/063/small/missing-picture-page-for-website-design-or-mobile-app-design-no-image-available-icon-vector.jpg' }}          
           resizeMode="contain"
           style={styles.logoImage}
         />
